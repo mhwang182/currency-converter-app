@@ -1,0 +1,23 @@
+.saved-section {
+    width: 300px;
+    height: 400px;
+    border: 1px solid #c4c3c4;
+    margin-top: 100px;
+    margin-left: 20px;
+    border-radius: 15px;
+    padding: 20px;
+    overflow-y: auto;
+
+
+    .saved-card {
+        box-shadow: 0 2px 10px 0 #b3bbc673;
+        border: 1px solid #c4c3c4;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        padding: 15px;
+        font-size: 20px;
+        border-bottom: 2px solid #4b7e49;
+    }
+}

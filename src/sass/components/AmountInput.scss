@@ -1,0 +1,27 @@
+.amount-input {
+    width: 11.9em;
+    min-height: 1em;
+    font-size: 25px;
+    padding: 20px;
+    background-color: #f1f2f5;
+    border: none;
+    border-bottom: 1px solid #8c8c8e;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    margin-top: 30px;
+}
+
+input.amount-input::-webkit-outer-spin-button,
+input.amount-input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input.amount-input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.amount-input:focus {
+    outline-width: 0;
+}

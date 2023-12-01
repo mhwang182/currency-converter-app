@@ -1,0 +1,20 @@
+.app-section {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.link-box {
+    box-shadow: 0 10px 20px 0 #b3bbc673;
+    border-radius: 15px;
+    width: 48%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    img {
+        height: 100px;
+    }
+}

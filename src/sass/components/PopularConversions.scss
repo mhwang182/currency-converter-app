@@ -1,0 +1,16 @@
+.popular-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    
+    .conversion-box {
+        border: 1px solid #c4c3c4;
+        border-radius: 4px;
+        padding: 15px;
+        width: 44%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+}
