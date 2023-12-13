@@ -7,10 +7,13 @@ import CurrencyFlag from 'react-currency-flags';
 interface ICurrencySelectProps {
     currentValue: option, 
     optionsList: option[],
-    onOptionClick: (code: string) => void
+    onOptionClick: (code: string) => void,
+    size?: string
 }
 
-const CurrencySelect = ({currentValue, optionsList, onOptionClick} : ICurrencySelectProps) => {
+const CurrencySelect = (props : ICurrencySelectProps) => {
+
+    const {currentValue, optionsList, onOptionClick, size} = props;
 
     const [openDropdown, setOpenDropdown] = useState(false);
     const [filter, setFilter] = useState('');
@@ -46,7 +49,7 @@ const CurrencySelect = ({currentValue, optionsList, onOptionClick} : ICurrencySe
     const ref = useDetectClickOutside({ onTriggered: closeDropdown });
 
     return (
-        <div className='container' ref={ref}>
+        <div className={`container ${size}`} ref={ref}>
             <CurrencyFlag currency={currentValue.code} size="lg"/>
             &nbsp;
             <input className='value' value={inputText} onChange={onTextChange}></input>

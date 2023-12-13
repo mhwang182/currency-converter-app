@@ -1,0 +1,28 @@
+.radio {
+    display: inline-flex;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid #c4c3c4;
+
+    input {
+        display: none;
+    }
+
+    label {
+        padding: 8px 14px;
+        font-size: 14px;
+        cursor: pointer;
+        background: #ffffff;
+        vertical-align: middle;
+        line-height: 2em;
+        transition-duration: 0.1s;
+    }
+
+    label:not(:last-of-type) {
+        border-right: 1px solid #c4c3c4;
+    }
+
+    input:checked + label {
+        background: #c4c3c4;
+    }
+}

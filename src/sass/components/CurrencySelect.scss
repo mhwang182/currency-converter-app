@@ -9,6 +9,10 @@
     display: flex;
     align-items: center;
     padding: 18px;
+
+    &.small {
+        padding: 8px;
+    }
     
     .clear-button {
         visibility: hidden
