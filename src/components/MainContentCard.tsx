@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AmountInput from "./AmountInput";
 import CurrencySelect from "./CurrencySelect";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import '../sass/components/MainContentCard.scss';
-import { CurrencyDataState, setCurrrencyData } from "../redux/CurrencyData";
+import { CurrencyDataState, fetchCurrencyData } from "../redux/CurrencyData";
 import CurrencyList from 'currency-list';
 import { 
     CurrencyState, 
@@ -15,21 +14,9 @@ import {
     setStartAmount, 
     setStartCurrencyCode 
 } from "../redux/CurrencyState";
-import { convertCurrency } from "../shared/utils";
+import { convertCurrency, getCurrencyOptions, option } from "../shared/utils";
 import { useNavigate } from "react-router-dom";
-
-export type option = {
-    label: string,
-    code: string
-}
-
-type CurrencyData = {
-    success: boolean,
-    timestamp: number,
-    base: string,
-    date: string,
-    rates: []
-}
+import { AppDispatch } from "../redux/store";
 
 const MainContentCard = () => {
 
@@ -43,9 +30,7 @@ const MainContentCard = () => {
 
     const navigate = useNavigate();
 
-    const dispatch = useDispatch();
-
-    const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch<AppDispatch>();
 
     const onInputChange = (e: React.FormEvent<HTMLInputElement>, isStartInput: boolean) => {
         let amount: number = parseFloat(e.currentTarget.value);
@@ -70,34 +55,12 @@ const MainContentCard = () => {
     }
 
     useEffect(() => {
-        const api = axios.create({
-            baseURL: "http://data.fixer.io/api"
-        });
-        
-        const apiKey = process.env.CURRENCY_API_KEY;
-        
-        const fetchData = async () => {
-
-            if(currencyData.rates.length === 0) {
-                const response = (await api.get(`/latest?access_key=${apiKey}&format=1`)).data as CurrencyData;
-                if(response.success){
-                    dispatch(setCurrrencyData(response));
-                    setIsLoading(false);
-                }
-            } else {
-                setIsLoading(false);
-            }
+        if(currencyData.rates.length === 0) {
+            dispatch(fetchCurrencyData());
         }
+    }, [dispatch]);
 
-        fetchData();
-    }, []);
-
-
-    const currencyOptions: option[] = Object.keys(currencyData.rates)
-                                            .filter(key => CurrencyList.get(key))
-                                            .map(key => {
-                                                return {label: CurrencyList.get(key).name, code: CurrencyList.get(key).code}
-                                            });
+    const currencyOptions: option[] = getCurrencyOptions(currencyData.rates);
 
     const getCurrencyInfo = (code: string) => {
         return {label: CurrencyList.get(code).name, code: code}
@@ -117,7 +80,7 @@ const MainContentCard = () => {
     
     return (
         <div className='main-content-card'>
-            {isLoading ? 
+            {currencyData.isLoading ? 
             <div>
                 Loading...
             </div> : <div className='content'>
